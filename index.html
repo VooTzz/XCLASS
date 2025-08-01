@@ -1,28 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portofolio Saya</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Portofolio - Pinzzzyap</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(to right, #4b6cb7, #182848);
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #222;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .project {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <h1>Olaa, Saya Kevin/Biasa Disebut Vios Di Dunia Bug</h1>
-    <p>Ini adalah portofolio saya.</p>
+    <h1>Olaa, Saya Pinzzzyap</h1>
+    <p>Seorang kreator digital dan pengembang web.</p>
   </header>
 
-  <section>
+  <nav>
+    <a href="#tentang">Tentang</a>
+    <a href="#projek">Projek</a>
+    <a href="#kontak">Kontak</a>
+  </nav>
+
+  <section id="tentang">
+    <h2>Tentang Saya</h2>
+    <p>Saya adalah pengembang web yang fokus pada pembuatan website modern, simpel, dan cepat. Saya juga suka eksplorasi dunia scripting, bot, dan UI interaktif.</p>
+  </section>
+
+  <section id="projek">
     <h2>Projek Saya</h2>
+
+    <div class="project">
+      <h3>🌐 Website Profil</h3>
+      <p>Website pribadi yang saya buat untuk belajar dan menampilkan kemampuan saya dalam HTML, CSS, dan JavaScript.</p>
+    </div>
+
+    <div class="project">
+      <h3>📱 Aplikasi Mobile</h3>
+      <p>Aplikasi sederhana berbasis web untuk membantu pengelolaan tugas harian.</p>
+    </div>
+
+    <div class="project">
+      <h3>🤖 Bot WhatsApp</h3>
+      <p>Bot otomatis yang dapat membalas pesan dan menjalankan perintah tertentu di WhatsApp.</p>
+    </div>
+  </section>
+
+  <section id="kontak">
+    <h2>Kontak</h2>
+    <p>Hubungi saya langsung lewat:</p>
     <ul>
-      <li>❄ Aplikasi </li>
-      <li>🀄 Website </li>
-      <li>👻 Script</li>
+      <li>📧 <a href="mailto:viosdevsonic@gmail.com">viosdevsonic@gmail.com</a></li>
+      <li>📱 <a href="82313746307" target="_blank">WhatsApp Saya</a></li>
+      <li>📸 <a href="https://instagram.com/kevin_ozi" target="_blank">Instagram</a></li>
+      <li>💻 <a href="https://github.com/VooTzz" target="_blank">GitHub</a></li>
     </ul>
   </section>
 
   <footer>
-    <p>© 2025 [Vinz/Xvios]</p>
+    <p>© 2025 Pinzzzyap - Dibuat dengan ❤️ dan Vercel</p>
   </footer>
+
 </body>
 </html>
