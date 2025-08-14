@@ -1,28 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const bars = document.querySelectorAll(".progress-bar");
+  const bars = document.querySelectorAll(".progress-bar span");
 
   bars.forEach(bar => {
-    const span = bar.querySelector("span");
-    const percentText = bar.querySelector(".percent-text");
-    const target = parseInt(bar.getAttribute("data-percent"), 10);
+    let percent = bar.getAttribute("data-percent");
+    let count = 0;
+    bar.style.width = "0%";
 
-    span.style.width = "0%";
-    percentText.textContent = "0%";
-
-    let width = 0;
-    const speed = 20; // kecepatan animasi (ms)
-    const step = target / (1500 / speed); // bagi animasi agar selesai 1,5 detik
-
+    // Animasi progress bar
     setTimeout(() => {
-      const fill = setInterval(() => {
-        if (width >= target) {
-          clearInterval(fill);
-        } else {
-          width += step;
-          span.style.width = `${width}%`;
-          percentText.textContent = `${Math.round(width)}%`;
-        }
-      }, speed);
+      bar.style.width = percent + "%";
     }, 200);
+
+    // Animasi angka persentase
+    let interval = setInterval(() => {
+      if (count < percent) {
+        count++;
+        bar.parentElement.setAttribute("data-percent", count + "%");
+      } else {
+        clearInterval(interval);
+      }
+    }, 15);
   });
 });
