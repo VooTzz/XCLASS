@@ -1,6 +1,7 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "index.html", "use": "@vercel/static" }
+  "rewrites": [
+    { "source": "/tentang", "destination": "/tentang.html" },
+    { "source": "/project", "destination": "/project.html" },
+    { "source": "/kontak", "destination": "/kontak.html" }
   ]
 }
