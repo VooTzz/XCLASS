@@ -1,0 +1,89 @@
+/* Font & Warna Dasar */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f172a;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  padding: 1rem;
+  text-align: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Section Projects */
+.projects {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.projects h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  color: #38bdf8;
+}
+.skill {
+  margin-bottom: 1.5rem;
+}
+.skill span {
+  font-weight: 600;
+}
+.progress-bar {
+  background: #1e293b;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 25px;
+  margin-top: 5px;
+  position: relative;
+}
+.progress-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #06b6d4, #3b82f6);
+  transition: width 1.5s ease-in-out;
+}
+.progress-bar::after {
+  content: attr(data-percent);
+  position: absolute;
+  top: 0;
+  right: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
