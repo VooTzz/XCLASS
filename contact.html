@@ -1,41 +1,1144 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tentang Saya</title>
-  <style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-    img {
-      width: 150px; height: 150px;
-      border-radius: 50%; object-fit: cover;
-      border: 3px solid #00bcd4; margin-top: 30px;
-    }
-    h1 {margin: 15px 0 5px;}
-    p {max-width: 600px; margin-bottom: 20px;}
-    .btn {background-color: #00bcd4; padding: 10px 20px; border-radius: 8px;
-      text-decoration: none; color: white; transition: 0.3s;}
-    .btn:hover {background-color: #0097a7;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Creative Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            overflow-x: hidden;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .logo-animation {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .name-animation {
+            margin-top: 20px;
+            color: var(--light);
+            font-size: 2rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: var(--transition);
+        }
+
+        .nav-scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 2rem 4rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c3c10dbd-c23d-47a7-a01a-b9100670aae7.png') center/cover;
+            opacity: 0.1;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            padding-right: 2rem;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .contact-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-content h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .contact-content a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-content a:hover {
+            color: #1d4ed8;
+        }
+
+        .social-media {
+            margin-top: 2rem;
+        }
+
+        .social-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .social-links-contact {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link-contact {
+            width: 45px;
+            height: 45px;
+            background: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link-contact:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: #94a3b8;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -0.5rem;
+            left: 0.8rem;
+            font-size: 0.8rem;
+            background: white;
+            padding: 0 0.5rem;
+            color: var(--primary);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .form-submit:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .form-submit:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .map-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            height: 400px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: #64748b;
+        }
+
+        .map-placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .faq-icon {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-nav a:hover {
+            color: white;
+        }
+
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link-footer {
+            color: white;
+            text-decoration: none;
+            width: 45px;
+            height: 45px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link-footer:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .contact-info {
+                padding-right: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .contact-form-container {
+                padding: 2rem;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Form Validation */
+        .form-input.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-input.error + .error-message {
+            display: block;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <div class="logo-animation">
+            <div class="logo-text">P</div>
+        </div>
+        <div class="name-animation">CONTACT</div>
+    </div>
 
-  <img src="assets/profile.jpg" alt="Foto Profil" />
-  <h1>Pinzz Yapp</h1>
-  <p>Jenis Domain: <b>.web.id</b></p>
-  <p>Saya adalah seorang pengembang web yang berfokus pada pembuatan aplikasi modern, responsif, dan fungsional.</p>
-  
-  <a href="index.html" class="btn">Kembali</a>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="project.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title fade-in">Get In Touch</h1>
+        <p class="page-subtitle fade-in">Let's discuss your project and create something amazing together</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info fade-in">
+                <h2 class="contact-title">Let's Start a Conversation</h2>
+                <p class="contact-description">
+                    I'm always excited to take on new challenges and collaborate on innovative projects. 
+                    Whether you have a question, want to discuss a potential project, or just want to say hello, 
+                    I'd love to hear from you.
+                </p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-content">
+                            <h4>Email</h4>
+                            <p><a href="mailto:hello@portfolio.com">hello@portfolio.com</a></p>
+                            <p>Typically replies within 24 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-content">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                            <p>Mon-Fri from 9am to 6pm</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-content">
+                            <h4>Location</h4>
+                            <p>123 Creative Street</p>
+                            <p>Innovation City, IC 12345</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-content">
+                            <h4>Availability</h4>
+                            <p>Available for freelance projects</p>
+                            <p>Starting new projects in January 2024</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-media">
+                    <h4 class="social-title">Follow Me</h4>
+                    <div class="social-links-contact">
+                        <a href="#" class="social-link-contact">📘</a>
+                        <a href="#" class="social-link-contact">🐦</a>
+                        <a href="#" class="social-link-contact">📸</a>
+                        <a href="#" class="social-link-contact">💼</a>
+                        <a href="#" class="social-link-contact">🎥</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container fade-in">
+                <h3 class="form-title">Send a Message</h3>
+                <div class="success-message" id="successMessage">
+                    Thank you! Your message has been sent successfully. I'll get back to you soon.
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="name" placeholder=" " required>
+                        <label for="name" class="form-label">Full Name</label>
+                        <div class="error-message">Please enter your name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-input" id="email" placeholder=" " required>
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="error-message">Please enter a valid email</div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="subject" placeholder=" " required>
+                        <label for="subject" class="form-label">Subject</label>
+                        <div class="error-message">Please enter a subject</div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-input form-textarea" id="message" placeholder=" " required></textarea>
+                        <label for="message" class="form-label">Your Message</label>
+                        <div class="error-message">Please enter your message</div>
+                    </div>
+
+                    <button type="submit" class="form-submit" id="submitBtn">
+                        Send Message
+                        <span>→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2 class="map-title fade-in">Where to Find Me</h2>
+            <div class="map-wrapper fade-in">
+                <div class="map-placeholder">
+                    <div class="map-placeholder-icon">🗺️</div>
+                    <p>Interactive map would be displayed here</p>
+                    <p>📍 123 Creative Street, Innovation City</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="faq-title fade-in">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        What types of projects do you take on?
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        I work on a variety of projects including web applications, mobile apps, 
+                        UI/UX design, and full-stack development. I specialize in React, Vue.js, 
+                        Node.js, and modern web technologies.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        What is your hourly rate?
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        My rates vary depending on the project scope and complexity. 
+                        I offer both hourly and project-based pricing. Contact me with your 
+                        project details for a customized quote.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        How long does a typical project take?
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Project timelines depend on the scope and requirements. 
+                        Small projects can take 2-4 weeks, while larger applications 
+                        may take 2-6 months. I provide detailed timelines during our initial consultation.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        Do you work with clients overseas?
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, I work with clients from all over the world. 
+                        I'm experienced in remote collaboration and can accommodate 
+                        different time zones for meetings and communication.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        What is your process for starting a new project?
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        My process typically includes: 1) Initial consultation, 
+                        2) Project planning and proposal, 3) Design and development, 
+                        4) Testing and revisions, 5) Launch and support. 
+                        I keep clients involved at every stage.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title fade-in">Ready to Start Your Project?</h2>
+            <p class="cta-description fade-in">
+                Let's work together to bring your ideas to life. I'm currently available 
+                for new projects and would love to hear about your vision.
+            </p>
+            <div class="cta-buttons fade-in">
+                <a href="#contact" class="btn btn-white">Get Started Today</a>
+                <a href="project.html" class="btn btn-outline">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">Portfolio</a>
+            
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="project.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="skills.html">Skills</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <div class="social-links-footer">
+                <a href="#" class="social-link-footer">📘</a>
+                <a href="#" class="social-link-footer">🐦</a>
+                <a href="#" class="social-link-footer">📸</a>
+                <a href="#" class="social-link-footer">💼</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 Creative Developer. All rights reserved.</p>
+                <p>Designed and developed with ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                    // Initialize animations after loading
+                    initAnimations();
+                    // Initialize form validation
+                    initFormValidation();
+                    // Initialize FAQ functionality
+                    initFAQ();
+                }, 600);
+            }, 2500);
+        });
+
+        // Navigation Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form Validation
+        function initFormValidation() {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                const inputs = form.querySelectorAll('.form-input');
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.classList.add('error');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('error');
+                    }
+                    
+                    // Email validation
+                    if (input.type === 'email' && input.value.trim()) {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(input.value)) {
+                            input.classList.add('error');
+                            isValid = false;
+                        }
+                    }
+                });
+
+                if (isValid) {
+                    // Simulate form submission
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = 'Sending...';
+                    
+                    setTimeout(() => {
+                        successMessage.style.display = 'block';
+                        form.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Send Message <span>→</span>';
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    }, 2000);
+                }
+            });
+
+            // Real-time validation
+            const inputs = form.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        this.classList.remove('error');
+                    }
+                    
+                    if (this.type === 'email' && this.value.trim()) {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (emailRegex.test(this.value)) {
+                            this.classList.remove('error');
+                        }
+                    }
+                });
+            });
+        }
+
+        // FAQ Functionality
+        function initFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        // Social Media Links
+        document.querySelectorAll('.social-link-contact, .social-link-footer').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const platform = this.textContent;
+                alert(`Redirecting to ${platform} profile...`);
+            });
+        });
+
+        // Scroll Animations
+        function initAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Initialize animations when page is fully loaded
+        window.addEventListener('load', function() {
+            if (document.getElementById('loader').style.display === 'none') {
+                initAnimations();
+                initFormValidation();
+                initFAQ();
+            }
+        });
+    </script>
 </body>
 </html>
