@@ -1,73 +1,1114 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project</title>
-  <style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: white;
-      padding: 20px;
-    }
-    h1 {text-align: center; margin-bottom: 20px;}
-    .project {
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    .skill {
-      margin: 10px 0;
-    }
-    .bar {
-      background: rgba(255,255,255,0.2);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .fill {
-      background: #00bcd4;
-      height: 12px;
-    }
-    .btn {display: block; text-align: center; margin-top: 20px;
-      background-color: #00bcd4; padding: 10px; border-radius: 8px;
-      text-decoration: none; color: white; transition: 0.3s;}
-    .btn:hover {background-color: #0097a7;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Creative Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            overflow-x: hidden;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .logo-animation {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .name-animation {
+            margin-top: 20px;
+            color: var(--light);
+            font-size: 2rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: var(--transition);
+        }
+
+        .nav-scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 2rem 4rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d488e398-b8ae-4e02-8b24-333582061244.png') center/cover;
+            opacity: 0.1;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 3rem 2rem;
+            background: white;
+        }
+
+        .filter-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            padding: 2rem 2rem 5rem;
+            background: #f8fafc;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(37, 99, 235, 0.9), rgba(245, 158, 11, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .view-project {
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border: 2px solid white;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .view-project:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-category {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: #e2e8f0;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .project-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: #1d4ed8;
+            gap: 0.8rem;
+        }
+
+        /* Project Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: #1d4ed8;
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .modal-category {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .modal-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-tag {
+            background: var(--primary);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-date {
+            color: #94a3b8;
+        }
+
+        .modal-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-link {
+            padding: 10px 20px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .modal-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            color: white;
+            text-decoration: none;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .modal-links {
+                justify-content: center;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <div class="logo-animation">
+            <div class="logo-text">P</div>
+        </div>
+        <div class="name-animation">PROJECTS</div>
+    </div>
 
-  <h1>Project Saya</h1>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="project.html" class="active">Projects</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <div class="project">
-    <h3>Project 1: Website Portofolio</h3>
-    <p>Membuat website portofolio modern.</p>
-  </div>
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title fade-in">My Projects</h1>
+        <p class="page-subtitle fade-in">A showcase of my latest work and creative endeavors</p>
+    </section>
 
-  <div class="project">
-    <h3>Project 2: Invoice Generator</h3>
-    <p>Aplikasi SaaS untuk membuat invoice otomatis.</p>
-  </div>
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-content">
+            <h2 class="filter-title fade-in">Filter by Category</h2>
+            <div class="filter-buttons fade-in">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                <button class="filter-btn" data-filter="other">Other</button>
+            </div>
+        </div>
+    </section>
 
-  <div class="project">
-    <h3>Project 3: Blog AI</h3>
-    <p>Website blog yang dibantu AI untuk menulis artikel.</p>
-  </div>
+    <!-- Projects Grid -->
+    <section class="projects-section">
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Project 1 -->
+            <div class="project-card fade-in" data-category="web">
+                <div class="project-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/658077ca-5b88-4ee8-9199-46e953d91a34.png" alt="Modern e-commerce dashboard interface with analytics charts and product management features" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'" />
+                    <div class="project-overlay">
+                        <a href="#" class="view-project" data-project="1">View Project</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Web Development</div>
+                    <h3 class="project-title">E-Commerce Dashboard</h3>
+                    <p class="project-description">
+                        A comprehensive e-commerce management system with real-time analytics, 
+                        inventory management, and customer insights.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Stripe</span>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-date">December 2023</span>
+                        <a href="#" class="project-link" data-project="1">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-  <h2>Skill</h2>
-  <div class="skill">HTML
-    <div class="bar"><div class="fill" style="width: 95%;"></div></div>
-  </div>
-  <div class="skill">CSS
-    <div class="bar"><div class="fill" style="width: 90%;"></div></div>
-  </div>
-  <div class="skill">JavaScript
-    <div class="bar"><div class="fill" style="width: 85%;"></div></div>
-  </div>
+            <!-- Project 2 -->
+            <div class="project-card fade-in" data-category="mobile">
+                <div class="project-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3311538d-d1e9-4e68-b43b-0b4953a69db5.png" alt="Clean mobile app interface for fitness tracking with workout statistics and progress charts" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #10b981 0%, #059669 100%)'" />
+                    <div class="project-overlay">
+                        <a href="#" class="view-project" data-project="2">View Project</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Mobile App</div>
+                    <h3 class="project-title">Fitness Tracker App</h3>
+                    <p class="project-description">
+                        A mobile application that helps users track their workouts, 
+                        set goals, and monitor progress with detailed analytics.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Redux</span>
+                        <span class="tag">HealthKit</span>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-date">October 2023</span>
+                        <a href="#" class="project-link" data-project="2">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-  <a href="index.html" class="btn">Kembali</a>
+            <!-- Project 3 -->
+            <div class="project-card fade-in" data-category="design">
+                <div class="project-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df7d1269-d0f8-4af1-a6a0-066b5650e3ee.png" alt="Corporate website redesign with modern typography, hero section, and service cards layout" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'" />
+                    <div class="project-overlay">
+                        <a href="#" class="view-project" data-project="3">View Project</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">UI/UX Design</div>
+                    <h3 class="project-title">Corporate Website Redesign</h3>
+                    <p class="project-description">
+                        Complete redesign of a corporate website with modern design principles, 
+                        improved user experience, and better performance.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Figma</span>
+                        <span class="tag">Adobe XD</span>
+                        <span class="tag">Prototyping</span>
+                        <span class="tag">User Testing</span>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-date">August 2023</span>
+                        <a href="#" class="project-link" data-project="3">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Project 4 -->
+            <div class="project-card fade-in" data-category="web">
+                <div class="project-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9011dfb3-b348-4c7d-83db-3a59d7a69197.png" alt="Modern project management dashboard with team collaboration features and timeline view" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'" />
+                    <div class="project-overlay">
+                        <a href="#" class="view-project" data-project="4">View Project</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Web Development</div>
+                    <h3 class="project-title">Project Management Tool</h3>
+                    <p class="project-description">
+                        A collaborative project management platform with task tracking, 
+                        team communication, and real-time updates.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">Express.js</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Socket.io</span>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-date">June 2023</span>
+                        <a href="#" class="project-link" data-project="4">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card fade-in" data-category="mobile">
+                <div class="project-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2a6f02ce-d538-4fac-8f44-301fd483a931.png" alt="Food delivery mobile app with menu browsing, ordering system, and delivery tracking" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'" />
+                    <div class="project-overlay">
+                        <a href="#" class="view-project" data-project="5">View Project</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Mobile App</div>
+                    <h3 class="project-title">Food Delivery App</h3>
+                    <p class="project-description">
+                        A food delivery application with restaurant listings, 
+                        real-time order tracking, and secure payment processing.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Dart</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Google Maps</span>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-date">April 2023</span>
+                        <a href="#" class="project-link" data-project="5">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card fade-in" data-category="other">
+                <div class="project-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6a7f24f4-ce3f-4dd9-aedf-14e00a143548.png" alt="Data visualization dashboard with interactive charts and real-time data analytics" onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)'" />
+                    <div class="project-overlay">
+                        <a href="#" class="view-project" data-project="6">View Project</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Data Visualization</div>
+                    <h3 class="project-title">Analytics Dashboard</h3>
+                    <p class="project-description">
+                        An interactive data visualization platform with real-time analytics, 
+                        custom reports, and predictive insights.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">D3.js</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Chart.js</span>
+                        <span class="tag">API Integration</span>
+                    </div>
+                    <div class="project-meta">
+                        <span class="project-date">February 2023</span>
+                        <a href="#" class="project-link" data-project="6">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-close" id="modalClose">×</div>
+            <div class="modal-image">
+                <img src="" alt="" id="modalImage" />
+            </div>
+            <div class="modal-body">
+                <div class="modal-category" id="modalCategory"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-tags" id="modalTags"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-date" id="modalDate"></div>
+                <div class="modal-links">
+                    <a href="#" class="modal-link" id="modalLive">Live Demo</a>
+                    <a href="#" class="modal-link" id="modalGithub">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo" style="color: white; margin-bottom: 1rem;">Portfolio</div>
+            <p>© 2024 Creative Developer. All rights reserved.</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">📸</a>
+                <a href="#" class="social-link">💼</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Project Data
+        const projects = {
+            1: {
+                title: "E-Commerce Dashboard",
+                category: "Web Development",
+                description: "A comprehensive e-commerce management system with real-time analytics, inventory management, customer insights, order processing, and payment integration. The dashboard provides merchants with complete control over their online store with intuitive UI and powerful analytics tools.",
+                tags: ["React", "Node.js", "MongoDB", "Stripe", "Redux", "Chart.js"],
+                image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/658077ca-5b88-4ee8-9199-46e953d91a34.png",
+                date: "December 2023",
+                live: "#",
+                github: "#"
+            },
+            2: {
+                title: "Fitness Tracker App",
+                category: "Mobile App",
+                description: "A comprehensive fitness tracking application that helps users monitor workouts, set personalized goals, track progress with detailed analytics, and connect with fitness communities. Includes features like workout plans, calorie tracking, social sharing, and integration with health devices.",
+                tags: ["React Native", "Firebase", "Redux", "HealthKit", "Google Fit", "Push Notifications"],
+                image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3311538d-d1e9-4e68-b43b-0b4953a69db5.png",
+                date: "October 2023",
+                live: "#",
+                github: "#"
+            },
+            3: {
+                title: "Corporate Website Redesign",
+                category: "UI/UX Design",
+                description: "Complete redesign of a corporate website focusing on modern design principles, improved user experience, accessibility, and performance optimization. The project involved user research, wireframing, prototyping, and implementation with a mobile-first approach.",
+                tags: ["Figma", "Adobe XD", "Prototyping", "User Testing", "Accessibility", "Responsive Design"],
+                image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df7d1269-d0f8-4af1-a6a0-066b5650e3ee.png",
+                date: "August 2023",
+                live: "#",
+                github: "#"
+            },
+            4: {
+                title: "Project Management Tool",
+                category: "Web Development",
+                description: "A collaborative project management platform featuring task management, team collaboration, real-time updates, file sharing, time tracking, and reporting. Built with modern web technologies for seamless team coordination and project planning.",
+                tags: ["Vue.js", "Express.js", "PostgreSQL", "Socket.io", "JWT", "WebSockets"],
+                image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9011dfb3-b348-4c7d-83db-3a59d7a69197.png",
+                date: "June 2023",
+                live: "#",
+                github: "#"
+            },
+            5: {
+                title: "Food Delivery App",
+                category: "Mobile App",
+                description: "A full-featured food delivery application with restaurant discovery, menu browsing, real-time order tracking, secure payments, and delivery management. Includes features like user reviews, favorite restaurants, and personalized recommendations.",
+                tags: ["Flutter", "Dart", "Firebase", "Google Maps", "Stripe", "Push Notifications"],
+                image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2a6f02ce-d538-4fac-8f44-301fd483a931.png",
+                date: "April 2023",
+                live: "#",
+                github: "#"
+            },
+            6: {
+                title: "Analytics Dashboard",
+                category: "Data Visualization",
+                description: "An advanced data visualization platform with interactive charts, real-time analytics, custom reporting, and predictive insights. Designed for businesses to analyze their data and make informed decisions with intuitive visual representations.",
+                tags: ["D3.js", "Python", "Chart.js", "API Integration", "Data Processing", "Machine Learning"],
+                image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/091d652e-3fba-4b25-8c7b-75c0f332d2e8.png",
+                date: "February 2023",
+                live: "#",
+                github: "#"
+            }
+        };
+
+        // Loading Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                    // Initialize animations after loading
+                    initAnimations();
+                    // Initialize project filter
+                    initProjectFilter();
+                    // Initialize modal functionality
+                    initModal();
+                }, 600);
+            }, 2500);
+        });
+
+        // Navigation Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Project Filter Functionality
+        function initProjectFilter() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, 100);
+                        } else {
+                            card.classList.remove('visible');
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+
+        // Modal Functionality
+        function initModal() {
+            const modal = document.getElementById('projectModal');
+            const modalClose = document.getElementById('modalClose');
+            const viewProjectButtons = document.querySelectorAll('.view-project, .project-link');
+
+            // Open modal
+            viewProjectButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const projectId = this.getAttribute('data-project');
+                    const project = projects[projectId];
+                    
+                    if (project) {
+                        document.getElementById('modalImage').src = project.image;
+                        document.getElementById('modalCategory').textContent = project.category;
+                        document.getElementById('modalTitle').textContent = project.title;
+                        document.getElementById('modalDescription').textContent = project.description;
+                        document.getElementById('modalDate').textContent = project.date;
+                        
+                        // Set tags
+                        const modalTags = document.getElementById('modalTags');
+                        modalTags.innerHTML = '';
+                        project.tags.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.className = 'modal-tag';
+                            tagElement.textContent = tag;
+                            modalTags.appendChild(tagElement);
+                        });
+                        
+                        // Set links
+                        document.getElementById('modalLive').href = project.live;
+                        document.getElementById('modalGithub').href = project.github;
+                        
+                        // Show modal
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Close modal
+            modalClose.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Scroll Animations
+        function initAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Initialize animations when page is fully loaded
+        window.addEventListener('load', function() {
+            if (document.getElementById('loader').style.display === 'none') {
+                initAnimations();
+                initProjectFilter();
+                initModal();
+            }
+        });
+    </script>
 </body>
 </html>
+
