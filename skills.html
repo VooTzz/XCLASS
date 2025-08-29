@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Creative Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            overflow-x: hidden;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .logo-animation {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .name-animation {
+            margin-top: 20px;
+            color: var(--light);
+            font-size: 2rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: var(--transition);
+        }
+
+        .nav-scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 2rem 4rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c3c10dbd-c23d-47a7-a01a-b9100670aae7.png') center/cover;
+            opacity: 0.1;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Skills Filter */
+        .skills-filter {
+            padding: 3rem 2rem;
+            background: white;
+        }
+
+        .filter-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Skills Grid */
+        .skills-section {
+            padding: 2rem 2rem 5rem;
+            background: #f8fafc;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-category {
+            margin-bottom: 4rem;
+        }
+
+        .skills-category-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .skill-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .skill-info .skill-level {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .skill-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-bar-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-bar-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .skill-percentage {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #e2e8f0;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Certifications Section */
+        .certifications {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .certification-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .certification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .certification-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .certification-issuer {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .certification-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .certification-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .certification-link:hover {
+            color: #1d4ed8;
+            gap: 0.8rem;
+        }
+
+        /* Tools Section */
+        .tools {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .tool-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .tool-category {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .tool-proficiency {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .proficiency-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .proficiency-dot.active {
+            background: var(--primary);
+        }
+
+        .tool-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            color: white;
+            text-decoration: none;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .skills-category-title {
+                font-size: 1.5rem;
+            }
+            
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <div class="logo-animation">
+            <div class="logo-text">P</div>
+        </div>
+        <div class="name-animation">SKILLS</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="project.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="skills.html" class="active">Skills</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title fade-in">My Skills</h1>
+        <p class="page-subtitle fade-in">A comprehensive overview of my technical expertise and professional capabilities</p>
+    </section>
+
+    <!-- Skills Filter -->
+    <section class="skills-filter">
+        <div class="filter-content">
+            <h2 class="filter-title fade-in">Filter by Category</h2>
+            <div class="filter-buttons fade-in">
+                <button class="filter-btn active" data-category="all">All Skills</button>
+                <button class="filter-btn" data-category="frontend">Frontend</button>
+                <button class="filter-btn" data-category="backend">Backend</button>
+                <button class="filter-btn" data-category="design">Design</button>
+                <button class="filter-btn" data-category="tools">Tools</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="skills-container">
+            <!-- Frontend Development -->
+            <div class="skills-category fade-in" data-category="frontend">
+                <h2 class="skills-category-title">💻 Frontend Development</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">⚛️</div>
+                            <div class="skill-info">
+                                <h3>React.js</h3>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Building complex, responsive user interfaces with modern React patterns, 
+                            hooks, and state management solutions.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Hooks</span>
+                            <span class="skill-tag">Context API</span>
+                            <span class="skill-tag">Redux</span>
+                            <span class="skill-tag">Next.js</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🟢</div>
+                            <div class="skill-info">
+                                <h3>Vue.js</h3>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Creating reactive applications with Vue 3 Composition API, Vuex for state management, 
+                            and Vue Router for navigation.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Vue 3</span>
+                            <span class="skill-tag">Vuex</span>
+                            <span class="skill-tag">Vue Router</span>
+                            <span class="skill-tag">Nuxt.js</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">📱</div>
+                            <div class="skill-info">
+                                <h3>React Native</h3>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Developing cross-platform mobile applications with React Native, 
+                            including native module integration and performance optimization.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">iOS</span>
+                            <span class="skill-tag">Android</span>
+                            <span class="skill-tag">Expo</span>
+                            <span class="skill-tag">Native Modules</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Development -->
+            <div class="skills-category fade-in" data-category="backend">
+                <h2 class="skills-category-title">⚙️ Backend Development</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🟨</div>
+                            <div class="skill-info">
+                                <h3>Node.js</h3>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Building scalable server-side applications with Express.js, RESTful APIs, 
+                            and real-time features using WebSockets.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Express.js</span>
+                            <span class="skill-tag">REST APIs</span>
+                            <span class="skill-tag">WebSockets</span>
+                            <span class="skill-tag">Middleware</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🐍</div>
+                            <div class="skill-info">
+                                <h3>Python</h3>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Developing backend services with Django and Flask, data processing scripts, 
+                            and automation tools.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Django</span>
+                            <span class="skill-tag">Flask</span>
+                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Automation</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🗄️</div>
+                            <div class="skill-info">
+                                <h3>Database Management</h3>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Working with both SQL and NoSQL databases including PostgreSQL, MySQL, 
+                            MongoDB, and Redis for various use cases.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">MongoDB</span>
+                            <span class="skill-tag">Redis</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design & UI/UX -->
+            <div class="skills-category fade-in" data-category="design">
+                <h2 class="skills-category-title">🎨 Design & UI/UX</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🎯</div>
+                            <div class="skill-info">
+                                <h3>UI/UX Design</h3>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Creating intuitive user interfaces with focus on user experience, 
+                            accessibility, and modern design principles.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">93%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="93"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Adobe XD</span>
+                            <span class="skill-tag">Prototyping</span>
+                            <span class="skill-tag">User Research</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🎨</div>
+                            <div class="skill-info">
+                                <h3>CSS & Preprocessors</h3>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Advanced CSS techniques including Flexbox, Grid, animations, 
+                            and working with preprocessors like SASS and LESS.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">SASS</span>
+                            <span class="skill-tag">LESS</span>
+                            <span class="skill-tag">CSS Grid</span>
+                            <span class="skill-tag">Flexbox</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">🚀</div>
+                            <div class="skill-info">
+                                <h3>Responsive Design</h3>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                        </div>
+                        <p class="skill-description">
+                            Creating websites that work perfectly on all devices and screen sizes 
+                            using modern responsive design techniques.
+                        </p>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar-header">
+                                <span class="skill-name">Proficiency</span>
+                                <span class="skill-percentage">96%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="96"></div>
+                            </div>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Mobile First</span>
+                            <span class="skill-tag">Breakpoints</span>
+                            <span class="skill-tag">Cross-browser</span>
+                            <span class="skill-tag">Performance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="certifications">
+        <h2 class="skills-category-title fade-in">📜 Certifications</h2>
+        <div class="certifications-grid">
+            <div class="certification-card fade-in">
+                <h3 class="certification-title">AWS Certified Developer</h3>
+                <div class="certification-issuer">Amazon Web Services</div>
+                <div class="certification-date">Issued: 2023</div>
+                <p class="certification-description">
+                    Professional certification demonstrating expertise in developing and maintaining 
+                    applications on the AWS platform.
+                </p>
+                <a href="#" class="certification-link">View Certificate →</a>
+            </div>
+
+            <div class="certification-card fade-in">
+                <h3 class="certification-title">Google UX Design Professional</h3>
+                <div class="certification-issuer">Google Career Certificates</div>
+                <div class="certification-date">Issued: 2022</div>
+                <p class="certification-description">
+                    Comprehensive certification covering the foundations of user experience design, 
+                    research, and prototyping.
+                </p>
+                <a href="#" class="certification-link">View Certificate →</a>
+            </div>
+
+            <div class="certification-card fade-in">
+                <h3 class="certification-title">React Developer Certification</h3>
+                <div class="certification-issuer">Meta</div>
+                <div class="certification-date">Issued: 2022</div>
+                <p class="certification-description">
+                    Advanced React development certification covering hooks, context API, 
+                    and modern React patterns.
+                </p>
+                <a href="#" class="certification-link">View Certificate →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools">
+        <h2 class="skills-category-title fade-in">🛠️ Development Tools</h2>
+        <div class="tools-grid">
+            <div class="tool-card fade-in">
+                <div class="tool-icon">📦</div>
+                <h3 class="tool-name">Git & GitHub</h3>
+                <div class="tool-category">Version Control</div>
+                <div class="tool-proficiency">
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                </div>
+                <p class="tool-description">
+                    Expert in version control, branching strategies, and collaborative development workflows.
+                </p>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div class="tool-icon">🐳</div>
+                <h3 class="tool-name">Docker</h3>
+                <div class="tool-category">Containerization</div>
+                <div class="tool-proficiency">
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot"></div>
+                </div>
+                <p class="tool-description">
+                    Containerizing applications and managing multi-container environments with Docker Compose.
+                </p>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div class="tool-icon">⚡</div>
+                <h3 class="tool-name">Webpack</h3>
+                <div class="tool-category">Build Tools</div>
+                <div class="tool-proficiency">
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot"></div>
+                </div>
+                <p class="tool-description">
+                    Configuring build processes, code splitting, and optimization for production deployments.
+                </p>
+            </div>
+
+            <div class="tool-card fade-in">
+                <div class="tool-icon">🔧</div>
+                <h3 class="tool-name">VS Code</h3>
+                <div class="tool-category">Code Editor</div>
+                <div class="tool-proficiency">
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
+                    <div class="proficiency-dot active"></div>
